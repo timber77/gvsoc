@@ -5,6 +5,8 @@ TARGETS ?= rv32;rv64
 BUILDDIR ?= build
 INSTALLDIR ?= install
 
+LOGDIR ?= /scratch/sem24h19/logs/gvsoc
+
 export PATH:=$(CURDIR)/gapy/bin:$(PATH)
 
 all: checkout build
@@ -30,6 +32,11 @@ clean:
 	rm -rf $(BUILDDIR) $(INSTALLDIR)
 
 
+TARGET=flooccamy
+BINARY=../flooccamy/sw/build/rtl/intercluster_bench.elf
+run:
+	$(INSTALLDIR)/bin/gvsoc --target $(TARGET) --binary $(BINARY) run --trace=insn:$(LOGDIR)/logs_insn.ansi
+#--trace=insn:$(LOGDIR)/logs_insn.ansi --trace=noc:$(LOGDIR)/logs_noc.ansi
 
 ######################################################################
 ## 				Make Targets for DRAMSys Integration 				##
